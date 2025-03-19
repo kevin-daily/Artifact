@@ -1,12 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"strings"
 )
+
+type Move struct {
+	Data Data
+}
 
 func main() {
 
@@ -36,7 +41,17 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	fmt.Println(res)
-	fmt.Println(string(body))
+	var moveData Move
+
+	json.Unmarshal([]byte(body), &moveData)
+
+	fmt.Println("Destination:")
+	fmt.Println(moveData.Data.Destination)
+
+	fmt.Println("Cooldown:")
+	fmt.Println(moveData.Data.Cooldown)
+
+	fmt.Println("Character:")
+	fmt.Println(moveData.Data.Character)
 
 }

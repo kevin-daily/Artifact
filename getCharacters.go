@@ -1,11 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 )
+
+type Characters struct {
+	Data Data
+}
 
 func main() {
 
@@ -29,7 +34,13 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	fmt.Println(res)
-	fmt.Println(string(body))
+	var characters Characters
+	err = json.Unmarshal(body, &characters)
+
+	if err != nil {
+		fmt.Println("Failed to parse JSON: " + err.Error())
+	}
+
+	fmt.Println(characters)
 
 }
