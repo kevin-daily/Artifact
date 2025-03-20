@@ -45,4 +45,5 @@ func main() {
 	fmt.Println("Result:")
 	fmt.Println("You restored " + strconv.Itoa(restData.Data.HP_Restored) + " HP")
 
+	fmt.Println("Cooldown is now " + strconv.Itoa(restData.Data.Cooldown.Remaining_Seconds))
 }

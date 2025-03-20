@@ -59,4 +59,5 @@ func main() {
 	fmt.Println("Fight logs:")
 	fmt.Println(fightData.Data.Fight.Logs)
 
+	fmt.Println("Cooldown is now " + strconv.Itoa(fightData.Data.Cooldown.Remaining_Seconds))
 }
