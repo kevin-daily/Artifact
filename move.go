@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -13,24 +12,12 @@ type ActionMove struct {
 	Move Move `json:"data"`
 }
 
-func MoveTo() {
-
-	args := os.Args
-
-	name := args[1]
-
+func MoveTo(name string, x string, y string, token []byte) {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/move"
 
-	payload := strings.NewReader("{\n  \"x\": " + args[2] + ",\n  \"y\": " + args[3] + "\n}")
+	payload := strings.NewReader("{\n  \"x\": " + x + ",\n  \"y\": " + y + "\n}")
 
 	req, _ := http.NewRequest("POST", url, payload)
-
-	token, err := os.ReadFile("api.txt")
-
-	if err != nil {
-		fmt.Println("Failed to get token with following error: " + err.Error())
-		os.Exit(1)
-	}
 
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")

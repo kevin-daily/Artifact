@@ -9,7 +9,7 @@ func main() {
 
 	getStatus()
 
-	var characterName, userInput string
+	var characterName, userInput, x, y string
 
 	token, err := os.ReadFile("api.txt")
 
@@ -32,6 +32,15 @@ func main() {
 
 		case "fight":
 			startFight(characterName, token)
+
+		case "move":
+			fmt.Println("Where would you like to move to? (x,y)")
+			fmt.Scanln(&x, &y)
+
+			MoveTo(characterName, x, y, token)
+
+		case "exit":
+			os.Exit(1)
 		}
 	}
 }
