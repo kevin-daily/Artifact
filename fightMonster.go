@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -9,15 +9,11 @@ import (
 	"strconv"
 )
 
-type FightData struct {
-	Data Data
+type FightMonster struct {
+	ActionFight ActionFight `json:"data"`
 }
 
-func main() {
-	args := os.Args
-
-	name := args[1]
-
+func startFight(name string) {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/fight"
 
 	req, _ := http.NewRequest("POST", url, nil)
@@ -38,26 +34,26 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	var fightData FightData
+	var fightMonster FightMonster
 
-	json.Unmarshal([]byte(body), &fightData)
+	json.Unmarshal([]byte(body), &fightMonster)
 
 	fmt.Println("Result:")
-	fmt.Println("You " + fightData.Data.Fight.Result + "!")
+	fmt.Println("You " + fightMonster.ActionFight.Fight.Result + "!")
 
 	fmt.Println()
 
-	fmt.Println("You received " + strconv.Itoa(fightData.Data.Fight.XP) + " XP and " + strconv.Itoa(fightData.Data.Fight.Gold) + " gold")
+	fmt.Println("You received " + strconv.Itoa(fightMonster.ActionFight.Fight.XP) + " XP and " + strconv.Itoa(fightMonster.ActionFight.Fight.Gold) + " gold")
 
 	fmt.Println("The monster dropped ")
-	if len(fightData.Data.Fight.Drops) == 0 {
+	if len(fightMonster.ActionFight.Fight.Drops) == 0 {
 		fmt.Print("nothing!")
 	} else {
-		fmt.Println(fightData.Data.Fight.Drops)
+		fmt.Println(fightMonster.ActionFight.Fight.Drops)
 	}
 	fmt.Println()
 	fmt.Println("Fight logs:")
-	fmt.Println(fightData.Data.Fight.Logs)
+	fmt.Println(fightMonster.ActionFight.Fight.Logs)
 
-	fmt.Println("Cooldown is now " + strconv.Itoa(fightData.Data.Cooldown.Remaining_Seconds))
+	fmt.Println("Cooldown will reset at " + fightMonster.ActionFight.Cooldown.Expiration)
 }

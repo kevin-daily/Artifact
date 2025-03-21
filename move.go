@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -9,11 +9,11 @@ import (
 	"strings"
 )
 
-type Move struct {
-	Data Data
+type ActionMove struct {
+	Move Move `json:"data"`
 }
 
-func main() {
+func MoveTo() {
 
 	args := os.Args
 
@@ -41,17 +41,17 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	var moveData Move
+	var actionMove ActionMove
 
-	json.Unmarshal([]byte(body), &moveData)
+	json.Unmarshal([]byte(body), &actionMove)
 
 	fmt.Println("Destination:")
-	fmt.Println(moveData.Data.Destination)
+	fmt.Println(actionMove.Move.Destination)
 
 	fmt.Println("Cooldown:")
-	fmt.Println(moveData.Data.Cooldown)
+	fmt.Println(actionMove.Move.Cooldown)
 
 	fmt.Println("Character:")
-	fmt.Println(moveData.Data.Character)
+	fmt.Println(actionMove.Move.Character)
 
 }

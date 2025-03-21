@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -8,11 +8,11 @@ import (
 	"os"
 )
 
-type Characters struct {
-	Data Data
+type GetCharacters struct {
+	Character []Character `json:"data"`
 }
 
-func main() {
+func getCharacterList() {
 
 	url := "https://api.artifactsmmo.com/my/characters"
 
@@ -34,7 +34,7 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	var characters Characters
+	var characters GetCharacters
 	err = json.Unmarshal(body, &characters)
 
 	if err != nil {

@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -7,22 +7,11 @@ import (
 	"net/http"
 )
 
-type returned struct {
-	data data
+type Status struct {
+	StatusData StatusData `json:"data"`
 }
 
-type data struct {
-	status            string
-	version           string
-	max_level         int64
-	characters_online int64
-	//server_time       string
-	//last_wipe         string
-	//next_wipe         string
-}
-
-func main() {
-
+func getStatus() {
 	url := "https://api.artifactsmmo.com/"
 
 	req, _ := http.NewRequest("GET", url, nil)
@@ -37,15 +26,15 @@ func main() {
 	fmt.Println("Body:")
 	fmt.Println(string(body))
 
-	var returned returned
+	var status Status
 
-	err := json.Unmarshal(body, &returned)
+	err := json.Unmarshal(body, &status)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	fmt.Println("Unmarshaled data:")
-	fmt.Println(returned)
+	fmt.Println(status)
 
 }

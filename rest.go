@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -9,15 +9,11 @@ import (
 	"strconv"
 )
 
-type restData struct {
-	Data Data
+type ActionRest struct {
+	Rest Rest `json:"data"`
 }
 
-func main() {
-	args := os.Args
-
-	name := args[1]
-
+func TakeRest(name string) {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/rest"
 
 	req, _ := http.NewRequest("POST", url, nil)
@@ -38,12 +34,12 @@ func main() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	var restData restData
+	var actionRest ActionRest
 
-	json.Unmarshal([]byte(body), &restData)
+	json.Unmarshal([]byte(body), &actionRest)
 
 	fmt.Println("Result:")
-	fmt.Println("You restored " + strconv.Itoa(restData.Data.HP_Restored) + " HP")
+	fmt.Println("You restored " + strconv.Itoa(actionRest.Rest.HP_Restored) + " HP")
 
-	fmt.Println("Cooldown is now " + strconv.Itoa(restData.Data.Cooldown.Remaining_Seconds))
+	fmt.Println("Cooldown resets at " + actionRest.Rest.Cooldown.Expiration)
 }

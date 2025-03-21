@@ -1,4 +1,4 @@
-package main
+package artifact
 
 import (
 	"encoding/json"
@@ -9,10 +9,10 @@ import (
 )
 
 type Bank struct {
-	Data Data
+	Bank BankDetails `json:"data"`
 }
 
-func main() {
+func getBankDetails() {
 
 	url := "https://api.artifactsmmo.com/my/bank"
 
@@ -38,7 +38,6 @@ func main() {
 	fmt.Println(string(body))
 
 	var bank Bank
-
 	err = json.Unmarshal([]byte(body), &bank)
 	if err != nil {
 		fmt.Println(err)
