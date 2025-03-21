@@ -1,12 +1,22 @@
 package artifact
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 
 	getStatus()
 
 	var characterName, userInput string
+
+	token, err := os.ReadFile("api.txt")
+
+	if err != nil {
+		fmt.Println("Failed to get token with following error: " + err.Error())
+		os.Exit(1)
+	}
 
 	fmt.Println()
 	fmt.Println("Enter your character name: ")
@@ -18,10 +28,10 @@ func main() {
 
 		switch userInput {
 		case "rest":
-			TakeRest(characterName)
+			TakeRest(characterName, token)
 
 		case "fight":
-			startFight(characterName)
+			startFight(characterName, token)
 		}
 	}
 }

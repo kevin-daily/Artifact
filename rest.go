@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strconv"
 )
 
@@ -13,17 +12,10 @@ type ActionRest struct {
 	Rest Rest `json:"data"`
 }
 
-func TakeRest(name string) {
+func TakeRest(name string, token []byte) {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/rest"
 
 	req, _ := http.NewRequest("POST", url, nil)
-
-	token, err := os.ReadFile("api.txt")
-
-	if err != nil {
-		fmt.Println("Failed to get token with following error: " + err.Error())
-		os.Exit(1)
-	}
 
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")
