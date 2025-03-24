@@ -1,10 +1,11 @@
-package artifact
+package main
 
 import (
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -29,16 +30,36 @@ func MoveTo(name string, x string, y string, token []byte) {
 	body, _ := io.ReadAll(res.Body)
 
 	var actionMove ActionMove
-
 	json.Unmarshal([]byte(body), &actionMove)
 
-	fmt.Println("Destination:")
-	fmt.Println(actionMove.Move.Destination)
+	// {City forest_chicken1 0 1 {monster chicken}}
 
-	fmt.Println("Cooldown:")
-	fmt.Println(actionMove.Move.Cooldown)
+	fmt.Print("You are in a ")
+	fmt.Println(actionMove.Move.Destination.Name)
+	fmt.Println()
 
-	fmt.Println("Character:")
-	fmt.Println(actionMove.Move.Character)
+	locationType := actionMove.Move.Destination.Content.Type
+
+	switch locationType {
+	case "monster":
+		fmt.Println("This location contains a " + actionMove.Move.Destination.Content.Code + " you can fight")
+	case "resource":
+		fmt.Println("This location contains a resource of type " + actionMove.Move.Destination.Content.Code)
+	case "workshop":
+		fmt.Println("This location has a workshop where you can learn" + actionMove.Move.Destination.Content.Code)
+	case "npc":
+		fmt.Println("This location has a " + actionMove.Move.Destination.Content.Code)
+	case "bank":
+		fmt.Println("This location has a " + actionMove.Move.Destination.Content.Code)
+	case "grand_exchange":
+		fmt.Println("This location has the Grand Exchange")
+	case "tasks_master":
+		fmt.Println("This location has the Task Master for " + actionMove.Move.Destination.Content.Code)
+	case "":
+		fmt.Println("There is nothing here")
+	}
+	fmt.Println()
+	fmt.Println("Cooldown will reset in " + strconv.Itoa(actionMove.Move.Cooldown.Remaining_Seconds) + " seconds")
+	fmt.Println()
 
 }

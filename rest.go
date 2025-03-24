@@ -1,4 +1,4 @@
-package artifact
+package main
 
 import (
 	"encoding/json"
@@ -32,6 +32,7 @@ func TakeRest(name string, token []byte) {
 
 	fmt.Println("Result:")
 	fmt.Println("You restored " + strconv.Itoa(actionRest.Rest.HP_Restored) + " HP")
-
-	fmt.Println("Cooldown resets at " + actionRest.Rest.Cooldown.Expiration)
+	fmt.Println()
+	fmt.Println("Cooldown resets in " + strconv.Itoa(actionRest.Rest.Cooldown.Remaining_Seconds) + " seconds")
+	fmt.Println()
 }

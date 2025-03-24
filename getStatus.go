@@ -1,10 +1,11 @@
-package artifact
+package main
 
 import (
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 type Status struct {
@@ -23,18 +24,16 @@ func getStatus() {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	fmt.Println("Body:")
-	fmt.Println(string(body))
-
 	var status Status
-
 	err := json.Unmarshal(body, &status)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fmt.Println("Unmarshaled data:")
-	fmt.Println(status)
+	fmt.Println(status.StatusData.Announcements[0])
+	fmt.Println()
+	fmt.Println("The server is " + status.StatusData.Status)
+	fmt.Println("There are currently " + strconv.Itoa(status.StatusData.Characters_Online) + " players online")
 
 }

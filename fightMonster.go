@@ -1,4 +1,4 @@
-package artifact
+package main
 
 import (
 	"encoding/json"
@@ -37,15 +37,16 @@ func startFight(name string, token []byte) {
 
 	fmt.Println("You received " + strconv.Itoa(fightMonster.ActionFight.Fight.XP) + " XP and " + strconv.Itoa(fightMonster.ActionFight.Fight.Gold) + " gold")
 
-	fmt.Println("The monster dropped ")
+	fmt.Print("The monster dropped ")
 	if len(fightMonster.ActionFight.Fight.Drops) == 0 {
-		fmt.Print("nothing!")
+		fmt.Println("nothing!")
 	} else {
 		fmt.Println(fightMonster.ActionFight.Fight.Drops)
 	}
 	fmt.Println()
 	fmt.Println("Fight logs:")
 	fmt.Println(fightMonster.ActionFight.Fight.Logs)
-
-	fmt.Println("Cooldown will reset at " + fightMonster.ActionFight.Cooldown.Expiration)
+	fmt.Println()
+	fmt.Println("Cooldown will reset in " + strconv.Itoa(fightMonster.ActionFight.Cooldown.Remaining_Seconds) + " seconds")
+	fmt.Println()
 }
