@@ -39,6 +39,9 @@ func main() {
 
 			MoveTo(characterName, x, y, token)
 
+		case "gather":
+			gatherResources(characterName, token)
+
 		case "exit":
 			os.Exit(1)
 		}

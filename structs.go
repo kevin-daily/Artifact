@@ -7,6 +7,12 @@ type ActionFight struct {
 	Character Character `json:"character"`
 }
 
+type ActionGathering struct {
+	Cooldown  Cooldown  `json:"colldown"`
+	Details   Details   `json:"details"`
+	Character Character `json:"character"`
+}
+
 type BankDetails struct {
 	Slots               int `json:"slots"`
 	Expansions          int `json:"expansions"`
@@ -144,6 +150,11 @@ type Destination struct {
 	X       int     `json:"x"`
 	Y       int     `json:"y"`
 	Content Content `json:"content"`
+}
+
+type Details struct {
+	XP    int     `json:"xp"`
+	Items []Drops `json:"items"`
 }
 
 type Drops struct {
