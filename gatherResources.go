@@ -13,7 +13,7 @@ type Gather struct {
 }
 
 func gatherResources(name string, token []byte) {
-	url := "https://api.artifactsmmo.com/my/" + name + "/action/move"
+	url := "https://api.artifactsmmo.com/my/" + name + "/action/gathering"
 
 	req, _ := http.NewRequest("POST", url, nil)
 
@@ -23,14 +23,23 @@ func gatherResources(name string, token []byte) {
 
 	res, _ := http.DefaultClient.Do(req)
 
+	if res.StatusCode > 299 {
+		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
+		fmt.Println("Status: " + res.Status)
+	}
+
+	if res.StatusCode == 499 {
+		fmt.Println("Character is in cooldown. Try again later")
+		return
+	}
+
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
 	var gather Gather
 	json.Unmarshal([]byte(body), &gather)
 
-	index := 0
-	for index < len(gather.ActionGathering.Details.Items) {
+	for index := range gather.ActionGathering.Details.Items {
 		fmt.Println()
 		fmt.Println("You got " + strconv.Itoa(gather.ActionGathering.Details.Items[index].Quantity) +
 			" of " + gather.ActionGathering.Details.Items[index].Code)

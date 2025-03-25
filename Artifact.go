@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func main() {
 
 	getStatus()
 
-	var characterName, userInput, x, y string
+	var characterName, itemCode, userInput, quantity, slot, x, y string
 
 	token, err := os.ReadFile("api.txt")
 
@@ -41,6 +42,54 @@ func main() {
 
 		case "gather":
 			gatherResources(characterName, token)
+
+		case "unequip":
+			fmt.Println("What slot would you like to unequip?" +
+				"\n(weapon, shield, helmet, body_armor, leg_armor, boots, ring1, ring2, amulet," +
+				"artifact1, artifact2, artifact3, utility1, utility2, bag, rune)")
+			fmt.Scanln(&slot)
+
+			if slot == "utility1" || slot == "utility2" {
+				fmt.Println("How many would you like to unequip?")
+				fmt.Scanln(&quantity)
+			} else {
+				quantity = "1"
+			}
+
+			quantityNum, _ := strconv.Atoi(quantity)
+
+			unequipItem(characterName, slot, quantityNum, token)
+
+		case "equip":
+			fmt.Println("What slot would you like to equip?" +
+				"\n(weapon, shield, helmet, body_armor, leg_armor, boots, ring1, ring2, amulet," +
+				"artifact1, artifact2, artifact3, utility1, utility2, bag, rune)")
+			fmt.Scanln(&slot)
+
+			fmt.Println("What item would you like to equip?")
+			fmt.Scanln(&itemCode)
+
+			if slot == "utility1" || slot == "utility2" {
+				fmt.Println("How many would you like to unequip?")
+				fmt.Scanln(&quantity)
+			} else {
+				quantity = "1"
+			}
+
+			quantityNum, _ := strconv.Atoi(quantity)
+
+			equipItem(characterName, itemCode, slot, quantityNum, token)
+
+		case "craft":
+			fmt.Println("What item would you like to craft?")
+			fmt.Scanln(&itemCode)
+
+			fmt.Println("How many would you like to craft?")
+			fmt.Scanln(&quantity)
+
+			quantityNum, _ := strconv.Atoi(quantity)
+
+			craftItem(characterName, itemCode, quantityNum, token)
 
 		case "exit":
 			os.Exit(1)

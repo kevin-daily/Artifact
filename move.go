@@ -26,13 +26,21 @@ func MoveTo(name string, x string, y string, token []byte) {
 
 	res, _ := http.DefaultClient.Do(req)
 
+	if res.StatusCode > 299 {
+		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
+		fmt.Println("Status: " + res.Status)
+	}
+
+	if res.StatusCode == 499 {
+		fmt.Println("Character is in cooldown. Try again later")
+		return
+	}
+
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
 	var actionMove ActionMove
 	json.Unmarshal([]byte(body), &actionMove)
-
-	// {City forest_chicken1 0 1 {monster chicken}}
 
 	fmt.Print("You are in a ")
 	fmt.Println(actionMove.Move.Destination.Name)
@@ -46,7 +54,7 @@ func MoveTo(name string, x string, y string, token []byte) {
 	case "resource":
 		fmt.Println("This location contains a resource of type " + actionMove.Move.Destination.Content.Code)
 	case "workshop":
-		fmt.Println("This location has a workshop where you can learn" + actionMove.Move.Destination.Content.Code)
+		fmt.Println("This location has a workshop where you can learn " + actionMove.Move.Destination.Content.Code)
 	case "npc":
 		fmt.Println("This location has a " + actionMove.Move.Destination.Content.Code)
 	case "bank":

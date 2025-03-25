@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type GetCharacters struct {
@@ -30,6 +31,16 @@ func getCharacterList() {
 	req.Header.Add("Authorization", "Bearer "+string(token))
 
 	res, _ := http.DefaultClient.Do(req)
+
+	if res.StatusCode > 299 {
+		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
+		fmt.Println("Status: " + res.Status)
+	}
+
+	if res.StatusCode == 499 {
+		fmt.Println("Character is in cooldown. Try again later")
+		return
+	}
 
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)

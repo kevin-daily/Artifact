@@ -23,6 +23,16 @@ func TakeRest(name string, token []byte) {
 
 	res, _ := http.DefaultClient.Do(req)
 
+	if res.StatusCode > 299 {
+		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
+		fmt.Println("Status: " + res.Status)
+	}
+
+	if res.StatusCode == 499 {
+		fmt.Println("Character is in cooldown. Try again later")
+		return
+	}
+
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 

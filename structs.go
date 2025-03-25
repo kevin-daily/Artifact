@@ -1,6 +1,12 @@
 package main
 
 // Top level
+type ActionCraft struct {
+	Cooldown  Cooldown  `json:"cooldown"`
+	Details   Details   `json:"details"`
+	Character Character `json:"character"`
+}
+
 type ActionFight struct {
 	Cooldown  Cooldown  `json:"cooldown"`
 	Fight     Fight     `json:"fight"`
@@ -8,8 +14,15 @@ type ActionFight struct {
 }
 
 type ActionGathering struct {
-	Cooldown  Cooldown  `json:"colldown"`
+	Cooldown  Cooldown  `json:"cooldown"`
 	Details   Details   `json:"details"`
+	Character Character `json:"character"`
+}
+
+type ActionUnequip struct {
+	Cooldown  Cooldown  `json:"cooldown"`
+	Slot      string    `json:"slot"`
+	Item      Item      `json:"item"`
 	Character Character `json:"character"`
 }
 
@@ -144,6 +157,13 @@ type Cooldown struct {
 	Reason            string `json:"reason"`
 }
 
+type Craft struct {
+	Skill    string  `json:"skill"`
+	Level    int     `json:"level"`
+	Items    []Drops `json:"items"`
+	Quantity int     `json:"quantity"`
+}
+
 type Destination struct {
 	Name    string  `json:"name"`
 	Skin    string  `json:"skin"`
@@ -160,6 +180,11 @@ type Details struct {
 type Drops struct {
 	Code     string `json:"code"`
 	Quantity int    `json:"quantity"`
+}
+
+type Effects struct {
+	Code  string `json:"code"`
+	Value int    `json:"value"`
 }
 
 type Fight struct {
@@ -179,6 +204,17 @@ type Inventory struct {
 	Quantity int    `json:"quantity"`
 }
 
+type Item struct {
+	Name        string    `json:"name"`
+	Code        string    `json:"code"`
+	Level       int       `json:"level"`
+	Type        string    `json:"type"`
+	Subtype     string    `json:"subtype"`
+	Description string    `json:"description"`
+	Effects     []Effects `json:"effects"`
+	Craft       Craft     `json:"craft"`
+	Tradeable   bool      `json:"tradeable"`
+}
 type Monster_Blocked_Hits struct {
 	Fire  int `json:"fire"`
 	Earth int `json:"earth"`

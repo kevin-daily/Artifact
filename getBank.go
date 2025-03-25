@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type Bank struct {
@@ -30,6 +31,11 @@ func getBankDetails() {
 	req.Header.Add("Authorization", "Bearer "+string(token))
 
 	res, _ := http.DefaultClient.Do(req)
+
+	if res.StatusCode > 299 {
+		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
+		fmt.Println("Status: " + res.Status)
+	}
 
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
