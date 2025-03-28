@@ -10,7 +10,7 @@ func main() {
 
 	getStatus()
 
-	var characterName, itemCode, userInput, quantity, slot, x, y string
+	var characterName, itemCode, userInput, quantity, slot, turns, x, y string
 
 	token, err := os.ReadFile("api.txt")
 
@@ -90,6 +90,23 @@ func main() {
 			quantityNum, _ := strconv.Atoi(quantity)
 
 			craftItem(characterName, itemCode, quantityNum, token)
+
+		case "inventory":
+			getCharInventory(characterName, token)
+
+		case "autogather":
+			fmt.Println("How many times would you like to auto gather?")
+			fmt.Scanln(&turns)
+
+			howMany, _ := strconv.Atoi(turns)
+			autoGather(characterName, howMany, token)
+
+		case "autoFight":
+			fmt.Println("How many fights would you like to complete?")
+			fmt.Scanln(&turns)
+
+			howMany, _ := strconv.Atoi(turns)
+			autoFight(characterName, howMany, token)
 
 		case "exit":
 			os.Exit(1)

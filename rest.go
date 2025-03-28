@@ -12,7 +12,7 @@ type ActionRest struct {
 	Rest Rest `json:"data"`
 }
 
-func TakeRest(name string, token []byte) {
+func TakeRest(name string, token []byte) int {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/rest"
 
 	req, _ := http.NewRequest("POST", url, nil)
@@ -30,7 +30,7 @@ func TakeRest(name string, token []byte) {
 
 	if res.StatusCode == 499 {
 		fmt.Println("Character is in cooldown. Try again later")
-		return
+		return 0
 	}
 
 	defer res.Body.Close()
@@ -45,4 +45,6 @@ func TakeRest(name string, token []byte) {
 	fmt.Println()
 	fmt.Println("Cooldown resets in " + strconv.Itoa(actionRest.Rest.Cooldown.Remaining_Seconds) + " seconds")
 	fmt.Println()
+
+	return actionRest.Rest.Cooldown.Remaining_Seconds
 }

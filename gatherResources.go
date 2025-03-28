@@ -12,7 +12,7 @@ type Gather struct {
 	ActionGathering ActionGathering `json:"data"`
 }
 
-func gatherResources(name string, token []byte) {
+func gatherResources(name string, token []byte) int {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/gathering"
 
 	req, _ := http.NewRequest("POST", url, nil)
@@ -30,7 +30,7 @@ func gatherResources(name string, token []byte) {
 
 	if res.StatusCode == 499 {
 		fmt.Println("Character is in cooldown. Try again later")
-		return
+		return 0
 	}
 
 	defer res.Body.Close()
@@ -49,4 +49,6 @@ func gatherResources(name string, token []byte) {
 	fmt.Println("You got " + strconv.Itoa(gather.ActionGathering.Details.XP) + " XP")
 	fmt.Println()
 	fmt.Println("Cooldown will reset in " + strconv.Itoa(gather.ActionGathering.Cooldown.Remaining_Seconds) + " seconds")
+
+	return gather.ActionGathering.Cooldown.Remaining_Seconds
 }

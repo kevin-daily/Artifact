@@ -12,7 +12,7 @@ type FightMonster struct {
 	ActionFight ActionFight `json:"data"`
 }
 
-func startFight(name string, token []byte) {
+func startFight(name string, token []byte) int {
 	url := "https://api.artifactsmmo.com/my/" + name + "/action/fight"
 
 	req, _ := http.NewRequest("POST", url, nil)
@@ -30,7 +30,7 @@ func startFight(name string, token []byte) {
 
 	if res.StatusCode == 499 {
 		fmt.Println("Character is in cooldown. Try again later")
-		return
+		return 0
 	}
 
 	defer res.Body.Close()
@@ -59,4 +59,6 @@ func startFight(name string, token []byte) {
 	fmt.Println()
 	fmt.Println("Cooldown will reset in " + strconv.Itoa(fightMonster.ActionFight.Cooldown.Remaining_Seconds) + " seconds")
 	fmt.Println()
+
+	return fightMonster.ActionFight.Cooldown.Remaining_Seconds
 }
