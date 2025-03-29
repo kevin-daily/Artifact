@@ -108,6 +108,9 @@ func main() {
 			howMany, _ := strconv.Atoi(turns)
 			autoFight(characterName, howMany, token)
 
+		case "bank":
+			getBankDetails(token)
+
 		case "exit":
 			os.Exit(1)
 		}

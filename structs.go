@@ -26,6 +26,13 @@ type ActionUnequip struct {
 	Character Character `json:"character"`
 }
 
+type DWBank struct {
+	Cooldown  Cooldown  `json:"cooldown"`
+	Item      Item      `json:"item"`
+	Bank      []Drops   `json:"bank"`
+	Character Character `json:"character"`
+}
+
 type BankDetails struct {
 	Slots               int `json:"slots"`
 	Expansions          int `json:"expansions"`
@@ -60,6 +67,11 @@ type StatusData struct {
 type Announcements struct {
 	Message    string `json:"message"`
 	Created_At string `json:"created_at"`
+}
+
+type BankPayload struct {
+	Code     string `json:"code"`
+	Quantity int    `json:"quantity"`
 }
 
 type Character struct {

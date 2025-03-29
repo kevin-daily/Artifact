@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strconv"
 )
 
@@ -13,18 +12,11 @@ type Bank struct {
 	Bank BankDetails `json:"data"`
 }
 
-func getBankDetails() {
+func getBankDetails(token []byte) {
 
 	url := "https://api.artifactsmmo.com/my/bank"
 
 	req, _ := http.NewRequest("GET", url, nil)
-
-	token, err := os.ReadFile("api.txt")
-
-	if err != nil {
-		fmt.Println("Failed to get token with following error: " + err.Error())
-		os.Exit(1)
-	}
 
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Accept", "application/json")
@@ -44,7 +36,7 @@ func getBankDetails() {
 	fmt.Println(string(body))
 
 	var bank Bank
-	err = json.Unmarshal([]byte(body), &bank)
+	err := json.Unmarshal([]byte(body), &bank)
 	if err != nil {
 		fmt.Println(err)
 		return
