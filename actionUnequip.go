@@ -36,13 +36,13 @@ func unequipItem(name string, slot string, quantity int, token []byte) {
 
 	res, _ := http.DefaultClient.Do(req)
 
-	if res.StatusCode > 299 {
-		fmt.Println("StatusCode: " + strconv.Itoa(res.StatusCode))
-		fmt.Println("Status: " + res.Status)
-	}
-
-	if res.StatusCode == 499 {
+	switch res.StatusCode {
+	case 200:
+	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
+		return
+	case 598:
+		fmt.Println("Bank is not at this location. Cannot perform this action here.")
 		return
 	}
 
