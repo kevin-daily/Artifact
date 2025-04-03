@@ -32,7 +32,12 @@ func WithdrawBank(name string, code string, quantity int, token []byte) {
 	res, _ := http.DefaultClient.Do(req)
 
 	switch res.StatusCode {
-	case 200:
+	case 478:
+		fmt.Println("Item not in inventory or insufficient quantity.")
+		return
+	case 497:
+		fmt.Println("Character inventory full")
+		return
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
 		return

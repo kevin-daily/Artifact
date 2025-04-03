@@ -39,12 +39,22 @@ func equipItem(name string, code string, slot string, quantity int, token []byte
 	res, _ := http.DefaultClient.Do(req)
 
 	switch res.StatusCode {
-	case 200:
+	case 478:
+		fmt.Println("Item mising from inventory or insufficient quantity")
+		return
+	case 484:
+		fmt.Println("Cannot equip more than 100 utilities in same slot")
+		return
+	case 485:
+		fmt.Println("Item already equipped")
+		return
+	case 491:
+		fmt.Println("Another item already equipped in slot")
+		return
+	case 496:
+		fmt.Println("Character level is insufficient to equip this item. Git gud")
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
-		return
-	case 598:
-		fmt.Println("Bank is not at this location. Cannot perform this action here.")
 		return
 	}
 

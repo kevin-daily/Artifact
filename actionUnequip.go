@@ -37,12 +37,20 @@ func unequipItem(name string, slot string, quantity int, token []byte) {
 	res, _ := http.DefaultClient.Do(req)
 
 	switch res.StatusCode {
-	case 200:
+	case 478:
+		fmt.Println("Item mising from inventory or insufficient quantity")
+		return
+	case 483:
+		fmt.Println("Character does not have enough HP to remove this item")
+		return
+	case 491:
+		fmt.Println("Slot is empty")
+		return
+	case 497:
+		fmt.Println("Character inventory is full.")
+		return
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
-		return
-	case 598:
-		fmt.Println("Bank is not at this location. Cannot perform this action here.")
 		return
 	}
 

@@ -23,16 +23,6 @@ func getBankDetails(token []byte) {
 
 	res, _ := http.DefaultClient.Do(req)
 
-	switch res.StatusCode {
-	case 200:
-	case 499:
-		fmt.Println("Character is in cooldown. Try again later")
-		return
-	case 598:
-		fmt.Println("Bank is not at this location. Cannot perform this action here.")
-		return
-	}
-
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 

@@ -32,7 +32,12 @@ func DepositBank(name string, code string, quantity int, token []byte) {
 	res, _ := http.DefaultClient.Do(req)
 
 	switch res.StatusCode {
-	case 200:
+	case 462:
+		fmt.Println("Your bank is full")
+		return
+	case 478:
+		fmt.Println("Item not in bank or insufficient quantity")
+		return
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
 		return

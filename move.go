@@ -24,15 +24,18 @@ func MoveTo(name string, x string, y string, token []byte) {
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Authorization", "Bearer "+string(token))
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 
 	switch res.StatusCode {
-	case 200:
+	case 490:
+		fmt.Println("Character already at that location")
+		return
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
-		return
-	case 598:
-		fmt.Println("Bank is not at this location. Cannot perform this action here.")
 		return
 	}
 
@@ -54,7 +57,7 @@ func MoveTo(name string, x string, y string, token []byte) {
 	case "resource":
 		fmt.Println("This location contains a resource of type " + actionMove.Move.Destination.Content.Code)
 	case "workshop":
-		fmt.Println("This location has a workshop where you can learn " + actionMove.Move.Destination.Content.Code)
+		fmt.Println("This location has a workshop where you can " + actionMove.Move.Destination.Content.Code)
 	case "npc":
 		fmt.Println("This location has a " + actionMove.Move.Destination.Content.Code)
 	case "bank":

@@ -24,12 +24,14 @@ func startFight(name string, token []byte) int {
 	res, _ := http.DefaultClient.Do(req)
 
 	switch res.StatusCode {
-	case 200:
+	case 497:
+		fmt.Println("Character inventory is full")
+		return 0
 	case 499:
 		fmt.Println("Character is in cooldown. Try again later")
 		return 0
 	case 598:
-		fmt.Println("Bank is not at this location. Cannot perform this action here.")
+		fmt.Println("No monster at this location.")
 		return 0
 	}
 
