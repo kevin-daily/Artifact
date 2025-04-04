@@ -40,6 +40,25 @@ type BankDetails struct {
 	Gold                int `json:"gold"`
 }
 
+type MonsterRetrieve struct {
+	Name            string        `json:"name"`
+	Code            string        `json:"code"`
+	Level           int           `json:"level"`
+	HP              int           `json:"hp"`
+	Attack_fire     int           `json:"attack_fire"`
+	Attack_earth    int           `json:"attack_earth"`
+	Attack_water    int           `json:"attack_water"`
+	Attack_air      int           `json:"attack_air"`
+	Res_fire        int           `json:"res_fire"`
+	Res_earth       int           `json:"res_earth"`
+	Res_water       int           `json:"res_water"`
+	Res_air         int           `json:"res_air"`
+	Critical_strike int           `json:"critical_strike"`
+	Effects         []Effects     `json:"effects"`
+	Min_Gold        int           `json:"min_gold"`
+	Max_Gold        int           `json:"max_gold"`
+	ResourceDrops   ResourceDrops `json:"drops"`
+}
 type Move struct {
 	Cooldown    Cooldown    `json:"cooldown"`
 	Destination Destination `json:"destination"`
@@ -50,6 +69,14 @@ type Rest struct {
 	Cooldown    Cooldown  `json:"cooldown"`
 	HP_Restored int       `json:"hp_restored"`
 	Character   Character `json:"character"`
+}
+
+type ResourceRetrieve struct {
+	Name  string          `json:"name"`
+	Code  string          `json:"code"`
+	Skill string          `json:"skill"`
+	Level int             `json:"level"`
+	Drops []ResourceDrops `json:"drops"`
 }
 
 type StatusData struct {
@@ -233,4 +260,11 @@ type Monster_Blocked_Hits struct {
 	Water int `json:"water"`
 	Air   int `json:"air"`
 	Total int `json:"total"`
+}
+
+type ResourceDrops struct {
+	Code         string `json:"code"`
+	Rate         int    `json:"rate"`
+	Min_Quantity int    `json:"min_quantity"`
+	Max_Quantity int    `json:"max_quantity"`
 }
