@@ -41,24 +41,25 @@ type BankDetails struct {
 }
 
 type MonsterRetrieve struct {
-	Name            string        `json:"name"`
-	Code            string        `json:"code"`
-	Level           int           `json:"level"`
-	HP              int           `json:"hp"`
-	Attack_fire     int           `json:"attack_fire"`
-	Attack_earth    int           `json:"attack_earth"`
-	Attack_water    int           `json:"attack_water"`
-	Attack_air      int           `json:"attack_air"`
-	Res_fire        int           `json:"res_fire"`
-	Res_earth       int           `json:"res_earth"`
-	Res_water       int           `json:"res_water"`
-	Res_air         int           `json:"res_air"`
-	Critical_strike int           `json:"critical_strike"`
-	Effects         []Effects     `json:"effects"`
-	Min_Gold        int           `json:"min_gold"`
-	Max_Gold        int           `json:"max_gold"`
-	ResourceDrops   ResourceDrops `json:"drops"`
+	Name            string          `json:"name"`
+	Code            string          `json:"code"`
+	Level           int             `json:"level"`
+	HP              int             `json:"hp"`
+	Attack_fire     int             `json:"attack_fire"`
+	Attack_earth    int             `json:"attack_earth"`
+	Attack_water    int             `json:"attack_water"`
+	Attack_air      int             `json:"attack_air"`
+	Res_fire        int             `json:"res_fire"`
+	Res_earth       int             `json:"res_earth"`
+	Res_water       int             `json:"res_water"`
+	Res_air         int             `json:"res_air"`
+	Critical_strike int             `json:"critical_strike"`
+	Effects         []Effects       `json:"effects"`
+	Min_Gold        int             `json:"min_gold"`
+	Max_Gold        int             `json:"max_gold"`
+	Drops           []ResourceDrops `json:"drops"`
 }
+
 type Move struct {
 	Cooldown    Cooldown    `json:"cooldown"`
 	Destination Destination `json:"destination"`
