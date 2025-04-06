@@ -10,7 +10,8 @@ func main() {
 
 	getStatus()
 
-	var characterName, itemCode, userInput, quantity, slot, turns, x, y string
+	var characterName, itemCode, command, flag, quantity, slot, turns, first, second string
+	var resource, monster string
 
 	token, err := os.ReadFile("api.txt")
 
@@ -32,70 +33,45 @@ func main() {
 
 	for {
 		fmt.Println("What would you like to do? Input \"help\" to get list of commands.")
-		fmt.Scanln(&userInput)
+		fmt.Scanln(&command, &flag)
 
-		switch userInput {
+		switch command {
 		case "help":
-			fmt.Println()
-			fmt.Println("rest - Recover HP by resting" +
-				"\nfight - Fight a single monster" +
-				"\nautofight - Fight monster a specified number of times. Auto rests after each fight" +
-				"\nmove - Move to a specified location (Uses X Y coordinates)" +
-				"\ngather - Gather a single resource" +
-				"\nautogather - Gather a specified number of resources" +
-				"\nequip - Equip specified item" +
-				"\nunequip - Unequip specified item" +
-				"\ncraft - Craft an item" +
-				"\ninventory - List the items in your inventory")
-			fmt.Println()
+			printHelp()
 
 		case "rest":
 			TakeRest(characterName, token)
 
 		case "fight":
-			startFight(characterName, token)
+			if flag == "-auto" {
+				fmt.Println("How many fights would you like to complete?")
+				fmt.Scanln(&turns)
+
+				howMany, _ := strconv.Atoi(turns)
+				autoFight(characterName, howMany, token)
+			} else {
+				startFight(characterName, token)
+			}
 
 		case "move":
 			fmt.Println("Where would you like to move to? (Either workshop / resource name or X Y coordinates)")
-			fmt.Scanln(&x, &y)
+			fmt.Scanln(&first, &second)
 
-			switch x {
-			case "mining":
-				x = "1"
-				y = "5"
-			case "woodcutting":
-				x = "-2"
-				y = "-3"
-			case "cooking":
-				x = "1"
-				y = "1"
-			case "weaponcrafting":
-				x = "2"
-				y = "1"
-			case "gearcrafting":
-				x = "3"
-				y = "1"
-			case "jewelrycrafting":
-				x = "1"
-				y = "3"
-			case "alchemy":
-				x = "2"
-				y = "3"
-			case "copper_rocks":
-				x = "2"
-				y = "0"
-			case "ash_tree":
-				x = "-1"
-				y = "0"
-			case "salmon":
-				x = "-3"
-				y = "-4"
-			}
+			var coordinates Coordinates
+			coordinates = getCoordinates(first, second)
 
-			MoveTo(characterName, x, y, token)
+			MoveTo(characterName, coordinates.X, coordinates.Y, token)
 
 		case "gather":
-			gatherResources(characterName, token)
+			if flag == "-auto" {
+				fmt.Println("How many times would you like to auto gather?")
+				fmt.Scanln(&turns)
+
+				howMany, _ := strconv.Atoi(turns)
+				autoGather(characterName, howMany, token)
+			} else {
+				gatherResources(characterName, token)
+			}
 
 		case "unequip":
 			fmt.Println("What slot would you like to unequip?" +
@@ -148,20 +124,6 @@ func main() {
 		case "inventory":
 			getCharInventory(characterName, token)
 
-		case "autogather":
-			fmt.Println("How many times would you like to auto gather?")
-			fmt.Scanln(&turns)
-
-			howMany, _ := strconv.Atoi(turns)
-			autoGather(characterName, howMany, token)
-
-		case "autoFight":
-			fmt.Println("How many fights would you like to complete?")
-			fmt.Scanln(&turns)
-
-			howMany, _ := strconv.Atoi(turns)
-			autoFight(characterName, howMany, token)
-
 		case "bank":
 			getBankDetails(token)
 
@@ -187,8 +149,30 @@ func main() {
 
 			WithdrawBank(characterName, itemCode, quantityNum, token)
 
+		case "resource":
+			if flag == "-all" {
+				retrieveAllResources(token)
+			} else {
+				fmt.Println("Which resource would you like information on?")
+				fmt.Scanln(&resource)
+
+				retrieveResource(resource, token)
+			}
+
+		case "monster":
+			if flag == "-all" {
+				retrieveAllMonster(token)
+			} else {
+				fmt.Println("Which monster would you like information on?")
+				fmt.Scanln(&monster)
+
+				retrieveMonster(monster, token)
+			}
+
 		case "exit":
 			os.Exit(1)
 		}
+
+		flag = ""
 	}
 }
