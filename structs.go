@@ -26,6 +26,13 @@ type ActionUnequip struct {
 	Character Character `json:"character"`
 }
 
+type BankDetails struct {
+	Slots               int `json:"slots"`
+	Expansions          int `json:"expansions"`
+	Next_Expansion_Cost int `json:"next_expansion_cost"`
+	Gold                int `json:"gold"`
+}
+
 type DWBank struct {
 	Cooldown  Cooldown  `json:"cooldown"`
 	Item      Item      `json:"item"`
@@ -33,11 +40,16 @@ type DWBank struct {
 	Character Character `json:"character"`
 }
 
-type BankDetails struct {
-	Slots               int `json:"slots"`
-	Expansions          int `json:"expansions"`
-	Next_Expansion_Cost int `json:"next_expansion_cost"`
-	Gold                int `json:"gold"`
+type ItemRetrieve struct {
+	Name        string    `json:"name"`
+	Code        string    `json:"code"`
+	Level       int       `json:"level"`
+	Type        string    `json:"type"`
+	Subtype     string    `json:"subtype"`
+	Description string    `json:"description"`
+	Effects     []Effects `json:"effects"`
+	Craft       Craft     `json:"craft"`
+	Tradeable   bool      `json:"tradeable"`
 }
 
 type MonsterRetrieve struct {

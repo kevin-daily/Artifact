@@ -39,6 +39,12 @@ func getCoordinates(first string, second string) Coordinates {
 	case "salmon":
 		x = "-3"
 		y = "-4"
+	case "gudgeon":
+		x = "4"
+		y = "2"
+	case "bank":
+		x = "4"
+		y = "1"
 	default:
 		x = first
 		y = second

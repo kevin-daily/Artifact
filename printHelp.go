@@ -15,8 +15,10 @@ func printHelp() {
 		"\ncraft - Craft an item" +
 		"\ninventory - List the items in your inventory" +
 		"\nresource - Give details about specified item" +
-		"\nresources -all - Give list of all items" +
+		"\nresource -all - Give list of all items" +
 		"\nmonster - Give details about specified monster" +
-		"\nmonsters -all - Give list of all monsters")
+		"\nmonster -all - Give list of all monsters" +
+		"\nitem - Give details about specified item" +
+		"\nitem -all - Give list of all items")
 	fmt.Println()
 }

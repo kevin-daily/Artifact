@@ -11,7 +11,7 @@ func main() {
 	getStatus()
 
 	var characterName, itemCode, command, flag, quantity, slot, turns, first, second string
-	var resource, monster string
+	var resource, monster, item string
 
 	token, err := os.ReadFile("api.txt")
 
@@ -167,6 +167,16 @@ func main() {
 				fmt.Scanln(&monster)
 
 				retrieveMonster(monster, token)
+			}
+
+		case "item":
+			if flag == "-all" {
+				retrieveAllItems(token)
+			} else {
+				fmt.Println("Which item would you like information on?")
+				fmt.Scanln(&item)
+
+				retrieveItem(item, token)
 			}
 
 		case "exit":

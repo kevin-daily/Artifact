@@ -31,40 +31,48 @@ func retrieveAllMonster(token []byte) {
 
 	var dataIndex int
 	for range monster.MonsterRetrieve {
-		fmt.Println("Name: " + monster.MonsterRetrieve[dataIndex].Name)
-		fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Code)
-		fmt.Println("Level: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Level))
-		fmt.Println("HP: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].HP))
-		fmt.Println("Attack Fire: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_fire))
-		fmt.Println("Attack Earth: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_earth))
-		fmt.Println("Attack Water: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_water))
-		fmt.Println("Attack Air: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_air))
-		fmt.Println("Attack Fire: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_fire))
-		fmt.Println("Resistance Earth : " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_earth))
-		fmt.Println("Resistance Water: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_water))
-		fmt.Println("Resistance Air: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_air))
-		fmt.Println("Critical Strike: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Critical_strike))
-		fmt.Println("Minimum Gold: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Min_Gold))
-		fmt.Println("Maximum Gold: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Max_Gold))
+		//fmt.Println()
+		//fmt.Println()
+		fmt.Println(strconv.Itoa(dataIndex) + ". Name: " + monster.MonsterRetrieve[dataIndex].Name)
+		//fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Code)
+		//fmt.Println("Level: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Level))
+		//fmt.Println("HP: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].HP))
+		//fmt.Println("Attack Fire: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_fire))
+		//fmt.Println("Attack Earth: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_earth))
+		//fmt.Println("Attack Water: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_water))
+		//fmt.Println("Attack Air: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_air))
+		//fmt.Println("Attack Fire: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Attack_fire))
+		//fmt.Println("Resistance Earth : " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_earth))
+		//fmt.Println("Resistance Water: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_water))
+		//fmt.Println("Resistance Air: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Res_air))
+		//fmt.Println("Critical Strike: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Critical_strike))
+		//fmt.Println("Minimum Gold: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Min_Gold))
+		//fmt.Println("Maximum Gold: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Max_Gold))
 
-		fmt.Println("The associated effects are: ")
-		var index int
-		for range monster.MonsterRetrieve[dataIndex].Effects {
-			fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Effects[index].Code)
-			fmt.Println("Value: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Effects[index].Value))
-			index++
-		}
+		//if len(monster.MonsterRetrieve[dataIndex].Effects) > 0 {
+		//fmt.Println("The associated effects are: ")
 
-		fmt.Println("The associated random drops are: ")
-		index = 0
-		for range monster.MonsterRetrieve[dataIndex].Drops {
-			fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Drops[index].Code)
-			fmt.Println("Minimum quantity: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Min_Quantity))
-			fmt.Println("Maximum quantity: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Max_Quantity))
-			fmt.Println("Rate of drop: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Rate))
+		//var index int
+		//for range monster.MonsterRetrieve[dataIndex].Effects {
+		//fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Effects[index].Code)
+		//fmt.Println("Value: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Effects[index].Value))
+		//index++
+		//}
+		//}
 
-			index++
-		}
+		//if len(monster.MonsterRetrieve[dataIndex].Drops) > 0 {
+		//fmt.Println("The associated random drops are: ")
+
+		//var index int
+		//for range monster.MonsterRetrieve[dataIndex].Drops {
+		//fmt.Println("Code: " + monster.MonsterRetrieve[dataIndex].Drops[index].Code)
+		//fmt.Println("Minimum quantity: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Min_Quantity))
+		//fmt.Println("Maximum quantity: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Max_Quantity))
+		//fmt.Println("Rate of drop: " + strconv.Itoa(monster.MonsterRetrieve[dataIndex].Drops[index].Rate))
+
+		//index++
+		//}
+		//}
 		dataIndex++
 	}
 }
